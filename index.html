@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbit Tap — Redirecting...</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T35K7GM9QL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // UTM метки
+    const params = new URLSearchParams(window.location.search);
+    const utmParams = {};
+    for (const [key, value] of params.entries()) {
+      if (key.startsWith('utm_')) {
+        utmParams[key] = value;
+      }
+    }
+    gtag('config', 'G-T35K7GM9QL', {
+      page_path: window.location.pathname + window.location.search,
+      ...utmParams
+    });
+  </script>
+</head>
+<body>
+  <p style="font-family: sans-serif; text-align: center; padding-top: 2em;">Redirecting to app store...</p>
+
+  <script>
+    const androidUrl = "https://play.google.com/store/apps/details?id=com.askargames.orbittap";
+    const iosUrl = "https://apps.apple.com/us/app/orbit-tap-space-challenge/id6746068863";
+
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    const isAndroid = /android/i.test(userAgent);
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+    const isMac = /Macintosh|MacIntel|MacPPC|Mac68K/.test(userAgent);
+    const isWindows = /Win32|Win64|Windows|WinCE/.test(userAgent);
+    const isLinux = /Linux/.test(userAgent);
+
+    let redirectUrl = "https://zhakenov.github.io"; // fallback
+    if (isAndroid) {
+      redirectUrl = androidUrl;
+    } else if (isIOS || isMac) {
+      redirectUrl = iosUrl;
+    }
+
+    // ⏱ Даем 1.5 сек. на GA4 before redirect
+    setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 1500);
+  </script>
+</body>
+</html>
